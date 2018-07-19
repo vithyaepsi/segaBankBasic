@@ -22,6 +22,7 @@ import javax.persistence.NamedQuery;
     @NamedQuery (name = "findAllTransferOperations", query = "SELECT a FROM TransferOperation a WHERE a.sender = :sender OR a.receiver = :receiver")
 })
 public class TransferOperation extends BankOperation  {
+    
     @ManyToOne
     private GenericAccount receiver;
     

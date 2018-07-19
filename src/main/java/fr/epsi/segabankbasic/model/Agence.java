@@ -39,6 +39,8 @@ public class Agence implements Serializable{
     
     private String adresse;
     
+    //  ezmonies est l'argent obtenu par l'exécution d'une BankOperation par un
+    //  compte payant
     private Double ezmonies;
 
     public Double getEzmonies() {
