@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="fr.epsi_segaBankBasic_jar_0.1PU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>fr.epsi.segabankbasic.model.PayingAccount</class>
+    <class>fr.epsi.segabankbasic.model.BankOperation</class>
+    <class>fr.epsi.segabankbasic.model.Agence</class>
+    <class>fr.epsi.segabankbasic.model.SimpleAccount</class>
+    <class>fr.epsi.segabankbasic.model.SavingsAccount</class>
+    <class>fr.epsi.segabankbasic.model.GenericAccount</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/segabankbasic?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="bouboule"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="password"/>
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+      <!--<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>-->
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+    </properties>
+  </persistence-unit>
+</persistence>
