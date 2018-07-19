@@ -27,10 +27,6 @@ public class SavingsAccount extends GenericAccount{
     }
     
     
-    public void calculInteret(){
-        solde += solde*(tauxInteret/100);
-    }
-    
     public Double simulateInteret(){
         return solde*(tauxInteret/100);
     }
