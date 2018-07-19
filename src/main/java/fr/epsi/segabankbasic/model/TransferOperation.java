@@ -14,7 +14,7 @@ import javax.persistence.NamedQuery;
  *
  * @author bouboule
  *  TransferOperation matérialise les opérations de virements entre deux comptes
- *  Il était à l'origine prévu que les opérations soient bidirectionnellement égales
+ *  Il était à l'origine prévu que les montants soient bidirectionnellement égaux
  *  Ce n'est pas le cas à cause des SavingsAccount
  */
 @Entity

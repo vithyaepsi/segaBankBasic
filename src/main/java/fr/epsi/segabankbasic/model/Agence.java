@@ -101,9 +101,7 @@ public class Agence implements Serializable{
     }
     
     public Agence(String code, String adresse, List<GenericAccount> accounts, Double ezmonies){
-        this.code = code;
-        this.adresse = adresse;
-        this.accounts = accounts;
+        this(code, adresse, accounts);
         this.ezmonies = ezmonies;
     }
     
