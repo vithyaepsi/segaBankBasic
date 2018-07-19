@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -102,22 +103,40 @@ public abstract class GenericAccount implements Serializable {
         this.login = null;
         this.password = null;
         this.agence = null;
+        listBankOperationSender = new ArrayList<>();
+        listBankOperationReceiver = new ArrayList<>();
     }
     
 
     public GenericAccount(Agence agence, String login, String password) {
+        this();
         this.solde = 0d;
         this.agence = agence;
         this.login = login;
         this.password = password;
     }
     
+    public GenericAccount(Agence agence, String login, String password, 
+            List<BankOperation> listBankOperationSender,
+            List<TransferOperation> listBankOperationReceiver) {
+        this(agence, login, password);
+        this.listBankOperationSender = listBankOperationSender;
+        this.listBankOperationReceiver = listBankOperationReceiver;
+    }
+    
     //  Le signe de l'opération est contenu dans le montant
     public void executeLocalOperation(Double amount){
         this.solde += amount;
+        //  il semble y avoir un dysfonctionnement lorsque appelé par PayingAccount
+        //  Il manque un persist ? les opérations effectuées ne sont pas immédiatement 
+        //  visibles dans l'historique.
+        System.out.println("debug : "+amount);
+        
         
         LocalOperation operation = new LocalOperation(this, amount);
         BankOperationDAO dao = new BankOperationDAO();
+        
+        System.out.println("debug : "+operation.getOperationSummary());
         dao.create(operation);
     }
     
@@ -130,9 +149,10 @@ public abstract class GenericAccount implements Serializable {
         
         System.out.println(amount.toString());
         
-        TransferOperation operation = new TransferOperation(this, amount, target);
+        TransferOperation operation = new TransferOperation(this, -amount, target);
+        
         //  On inverse l'emetteur et le récepteur, car le montant véritablement affecté
-        //  n'est pas toujours le même.
+        //  n'est pas toujours le même à gauche et à droite.
         TransferOperation operation2 = new TransferOperation(target, newAmount, this);
         BankOperationDAO dao = new BankOperationDAO();
         dao.create(operation);

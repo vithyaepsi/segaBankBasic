@@ -98,6 +98,13 @@ public class Agence implements Serializable{
         ezmonies = 0d;
     }
     
+    public Agence(String code, String adresse, List<GenericAccount> accounts, Double ezmonies){
+        this.code = code;
+        this.adresse = adresse;
+        this.accounts = accounts;
+        this.ezmonies = ezmonies;
+    }
+    
     @Override
     public String toString(){
         return code;

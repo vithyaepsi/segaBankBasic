@@ -34,6 +34,7 @@ public abstract class BankOperation implements Serializable {
     
     protected Double amount;
     
+    //  Le résumé de l'opération doit être défini dans toutes les classes
     public abstract String getOperationSummary();
     
     public String getOperationTrace(){
@@ -44,7 +45,7 @@ public abstract class BankOperation implements Serializable {
         else{
             buffer += "+";
         }
-        buffer += amount + "€";
+        buffer += Math.abs(amount) + "€";
         
         return buffer;
     }

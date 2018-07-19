@@ -12,6 +12,7 @@ import javax.persistence.NamedQuery;
 /**
  *
  * @author bouboule
+ *  Matérialise les opérations sur un seul compte
  */
 @Entity
 @NamedQueries({

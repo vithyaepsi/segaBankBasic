@@ -13,6 +13,9 @@ import javax.persistence.NamedQuery;
 /**
  *
  * @author bouboule
+ *  TransferOperation matérialise les opérations de virements entre deux comptes
+ *  Il était à l'origine prévu que les opérations soient bidirectionnellement égales
+ *  Ce n'est pas le cas à cause des SavingsAccount
  */
 @Entity
 @NamedQueries({
@@ -36,10 +39,18 @@ public class TransferOperation extends BankOperation  {
         this.receiver = receiver;
     }
     
-
+    //  La provenance du virement est faussée par le doublement de l'enregistrement
+    // des TransferOperation
+    //  EZ FIX : switcher les provenances lorsque amount est négatif.
     @Override
     public String getOperationSummary() {
-        return(super.getOperationTrace()+"\nVirement de "+sender.getLogin()+ " vers "+ receiver.getLogin());
+        if(amount > 0){
+            return(super.getOperationTrace()+"\nVirement de "+receiver.getLogin()+ " vers "+ sender.getLogin());
+        }
+        else{
+            return(super.getOperationTrace()+"\nVirement de "+sender.getLogin()+ " vers "+ receiver.getLogin());
+        }
+        
     }
     
     

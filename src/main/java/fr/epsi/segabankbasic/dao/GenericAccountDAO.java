@@ -74,6 +74,8 @@ public class GenericAccountDAO implements IDAO<GenericAccount> {
         //System.out.println("Persisted : " + account.toString());
     }
 
+    //  persister l'objet via EM semble faire le create et l'update en fonction
+    //  de la présence ou non de la valeur
     @Override
     public void update(GenericAccount account) {
         EntityManager em = EntityManagerProvider.getEntityManager();
@@ -89,4 +91,7 @@ public class GenericAccountDAO implements IDAO<GenericAccount> {
     }
     
     
+    public void findAccountOperations(){
+        
+    }
 }

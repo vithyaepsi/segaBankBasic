@@ -33,6 +33,8 @@ public class PayingAccount extends GenericAccount implements Serializable {
         Double ezmonies = amount * 0.05;
         amount -= ezmonies;
         
+        this.sendEzMoneyToAgency(ezmonies);
+        
         super.executeLocalOperation(amount);
     }
     
@@ -44,11 +46,18 @@ public class PayingAccount extends GenericAccount implements Serializable {
         if(amount < 0){
             multiplier = -1;
         }
+        
+        //  On est obligé de réextraire le signe de l'opération 
+        //  pour réduire de 5% la valeur absolue du montant de l'opération
+        //  Séparer le signe du montant aurait résolu le problème
         Double absAmount = Math.abs(amount);
         
         Double ezmonies = absAmount * 0.05;
         absAmount -= ezmonies;
         absAmount *= multiplier;
+        
+        //  On envoie l'argent dûment acquis directement dans la poche de la banque
+        this.sendEzMoneyToAgency(ezmonies);
         
         super.executeTransferOperation(amount, target, absAmount);
         
@@ -57,9 +66,11 @@ public class PayingAccount extends GenericAccount implements Serializable {
     public void sendEzMoneyToAgency(Double ezmonies){
         agence.setEzmonies( agence.getEzmonies() + ezmonies );
         
-        //  CascadeType.PERSIST
+        //  CascadeType.PERSIST ??
         AgenceDAO dao = new AgenceDAO();
         dao.update(agence);
+        
+        System.out.println("EZ MONIES SENT : "+ ezmonies);
     }
     
 }

@@ -47,6 +47,8 @@ public class BankOperationDAO implements IDAO<BankOperation>{
         EntityManager em = EntityManagerProvider.getEntityManager();
         em.remove(bankOperation);
     }
+    
+   
 
     
 }

@@ -15,6 +15,8 @@ import fr.epsi.segabankbasic.model.LocalOperation;
 import fr.epsi.segabankbasic.model.PayingAccount;
 import fr.epsi.segabankbasic.model.SavingsAccount;
 import fr.epsi.segabankbasic.model.SimpleAccount;
+import fr.epsi.segabankbasic.model.BankOperation;
+import fr.epsi.segabankbasic.model.TransferOperation;
 import fr.epsi.segabankbasic.util.EntityManagerProvider;
 import java.io.Console;
 import java.util.ArrayList;
@@ -106,7 +108,7 @@ public class main {
             System.out.print( "*Entrez votre choix : " );
             response = scanner.nextInt();
             scanner.nextLine();
-        } while ( 0 >= response || response > 7 );
+        } while ( 0 >= response || response > 8 );
         switch ( response ) {
             case 1:
                 addAccount();
@@ -130,7 +132,8 @@ public class main {
                 accountMenu();
             }
             else{
-                System.out.println("Fuck off");
+                System.out.println("Il semblerait que votre mot de passe ne"
+                        + " soit qu'une excrétion intestinale");
                 mainMenu();
             }
         }
@@ -149,10 +152,10 @@ public class main {
             System.out.println( "******Opérations du compte************" );
             System.out.println( "* 1 - Réaliser un virement bancaire  *" );
             System.out.println( "* 2 - Réaliser un débit              *" );
-            System.out.println( "* 3 - Créditer votre compte (EZ $$$) *" );
+            System.out.println( "* 3 - Créditer votre compte          *" );
             System.out.println( "* 4 - Voir l'historique du compte    *" );
             System.out.println( "* 5 - Consulter le solde             *" );
-            System.out.println( "* 6 - Aller se faire voir            *" );
+            System.out.println( "* 6 - Rien d'utile                   *" );
             System.out.println( "* 0 - Quitter                        *" );
             System.out.println( "**************************************" );
             System.out.print( "*Entrez votre choix : " );
@@ -173,16 +176,33 @@ public class main {
                 accountMenu();
                 break;
             case 4:
-                System.out.println("TOUT DOUX");
+                accountHistory();
                 accountMenu();
                 break;
             case 5:
                 consultSolde();
                 accountMenu();
                 break;
+            case 6:
+                System.out.println("Il n'y a rien ici.");
+                accountMenu();
             case 0:
                 mainMenu();
                 break;
+        }
+    }
+    
+    public static void accountHistory(){
+        //  Les BankOperation faisant partie de l'historique sont seulement
+        //  les BankOperation de ListBankOperationSender
+        //  listBankOperationReceiver contient des montants faussés.
+        
+        
+        List<BankOperation> operationList = connectedAccount.getListBankOperationSender();
+        //operationList.addAll(connectedAccount.getListBankOperationReceiver());
+        
+        for(BankOperation op : operationList){
+            System.out.println( op.getOperationSummary() );
         }
     }
     

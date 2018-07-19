@@ -32,11 +32,17 @@ public class SimpleAccount extends GenericAccount {
         this.decouvert = decouvert;
     }
     
+    
+    //  Le simpleAccount est le seul compte disposant d'un découvert
     @Override
     public void executeLocalOperation(Double amount){
         if(solde - amount >= -decouvert){
             super.executeLocalOperation(amount);
         }
+    }
+    
+    
+    public void executeTransferOperation(){
         
     }
     
