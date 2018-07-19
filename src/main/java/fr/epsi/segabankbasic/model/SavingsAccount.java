@@ -21,12 +21,18 @@ public class SavingsAccount extends GenericAccount{
     
     public SavingsAccount(Agence agence, String login, String password) {
         super(agence, login, password);
+        //  Le taux d'intérêts est fixe et prédéterminé.
+        //  la variable aurait pu être final ?
         tauxInteret = 1.5;
     }
     
     
     public void calculInteret(){
         solde += solde*(tauxInteret/100);
+    }
+    
+    public Double simulateInteret(){
+        return solde*(tauxInteret/100);
     }
     
     private Double tauxInteret;

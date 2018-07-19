@@ -146,8 +146,9 @@ public class main {
     
     public static void accountMenu(){
         int response;
-        
+        Boolean hasSavings = connectedAccount.getClass() == SavingsAccount.class;
         do {
+            
             System.out.println( "**************************************" );
             System.out.println( "******Opérations du compte************" );
             System.out.println( "* 1 - Réaliser un virement bancaire  *" );
@@ -155,7 +156,12 @@ public class main {
             System.out.println( "* 3 - Créditer votre compte          *" );
             System.out.println( "* 4 - Voir l'historique du compte    *" );
             System.out.println( "* 5 - Consulter le solde             *" );
-            System.out.println( "* 6 - Rien d'utile                   *" );
+            if( hasSavings == true ){
+                System.out.println( "* 6 - Obtenir les intérêts           *" );
+            }
+            else{
+                System.out.println( "* 6 - Rien d'utile                   *" );
+            }
             System.out.println( "* 0 - Quitter                        *" );
             System.out.println( "**************************************" );
             System.out.print( "*Entrez votre choix : " );
@@ -184,12 +190,27 @@ public class main {
                 accountMenu();
                 break;
             case 6:
-                System.out.println("Il n'y a rien ici.");
+                if( hasSavings == true ){
+                    showSavings();
+                }
+                else{
+                    System.out.println("Il n'y a rien ici.");
+                }
+                
                 accountMenu();
             case 0:
                 mainMenu();
                 break;
         }
+    }
+    
+    public static void showSavings(){
+        //  On doit spécialiser connectedAccount pour utiliser simulateInterets();
+        //  La vérification de la conformité de la classe est faite dans accountMenu()
+        SavingsAccount sa = (SavingsAccount)connectedAccount;
+        System.out.println("A la prochaine échéance, votre compte sera crédité de : "+sa.simulateInteret()
+        +"€"
+        );
     }
     
     public static void accountHistory(){
